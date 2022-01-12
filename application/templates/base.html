@@ -1,0 +1,176 @@
+{% load static %}
+{%block html%}
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+{%block head%}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png'%}">
+    <title>Employee </title>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/multicheck.css'%}">
+    <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.css'%}" rel="stylesheet">
+    <link href="{% static 'css/style.min.css'%}" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/select2.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.minicolors.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-datepicker.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/quill.snow.css'%}">
+    <link href="{% static 'css/style.min.css" rel="stylesheet'%}"> 
+    <link href="{% static 'css/toastr.min.css" rel="stylesheet'%}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+{%endblock head%}
+{% block body %}
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        {% include 'header.html' %}
+        {% include 'sideheader.html' %}
+        {% block content %}{% endblock content %}
+    </div>
+    <footer class="footer text-center">
+        All Rights Reserved by Matrix-admin. Designed and Developed by <a href="https://wrappixel.com">WrapPixel</a>.
+    </footer>
+    {% block script %}
+
+    <script src="{% static 'js/jquery.min.js'%}"></script>
+    {% comment %} <script src="{% static 'js/jquery.js'%}"></script> {% endcomment %}
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="{%static 'libs/popper.js/dist/umd/popper.min.js'%}"></script>
+    <script src="{%static 'js/popper.min.js'%}"></script>
+    <script src="{%static 'js/bootstrap.min.js' %}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="{%static 'js/perfect-scrollbar.jquery.min.js'%}"></script>
+    <script src="{%static 'js/sparkline.js'%}"></script>
+    <!--Wave Effects -->
+    <script src="{%static 'js/waves.js'%}"></script>
+    <!--Menu sidebar -->
+    <script src="{%static 'js/sidebarmenu.js'%}"></script>
+    <!--Custom JavaScript -->
+    <script src="{%static 'js/custom.min.js'%}"></script>
+    <!-- this page js -->
+    <script src="{%static 'js/datatable-checkbox-init.js'%}"></script>
+    <script src="{%static 'js/jquery.multicheck.js'%}"></script>
+    <script src="{%static 'js/datatables.min.js'%}"></script>
+    <script src="{%static 'js/jquery.inputmask.bundle.min.js'%}"></script>
+    <script src="{%static 'js/mask.init.js'%}"></script>
+    <script src="{%static 'libs/select2/dist/js/select2.full.min.js'%}"></script>
+    <script src="{%static 'js/select2.min.js'%}"></script>
+    <script src="{%static 'js/jquery-asColor.min.js'%}"></script>
+    <script src="{%static 'js/jquery-asGradient.js'%}"></script>
+    <script src="{%static 'js/jquery-asColorPicker.min.js'%}"></script>
+    <script src="{%static 'js/jquery.minicolors.min.js'%}"></script>
+    <script src="{%static 'js/bootstrap-datepicker.min.js'%}"></script>
+    <script src="{%static 'js/quill.min.js'%}"></script>
+    <script src="{%static 'js/toastr.min.js'%}"></script>
+  
+    <script>
+        $('#zero_config').DataTable();
+    </script>
+
+    <script>
+        //***********************************//
+        // For select 2
+        //***********************************//
+        $(".select2").select2();
+
+        /*colorpicker*/
+        $('.demo').each(function() {
+        //
+        // Dear reader, it's actually very easy to initialize MiniColors. For example:
+        //
+        //  $(selector).minicolors();
+        //
+        // The way I've done it below is just for the demo, so don't get confused
+        // by it. Also, data- attributes aren't supported at this time...they're
+        // only used for this demo.
+        //
+        $(this).minicolors({
+                control: $(this).attr('data-control') || 'hue',
+                position: $(this).attr('data-position') || 'bottom left',
+
+                change: function(value, opacity) {
+                    if (!value) return;
+                    if (opacity) value += ', ' + opacity;
+                    if (typeof console === 'object') {
+                        console.log(value);
+                    }
+                },
+                theme: 'bootstrap'
+            });
+
+        });
+        /*datwpicker*/
+        jQuery('.mydatepicker').datepicker();
+        jQuery('#datepicker-autoclose').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            toastr.options.closeButton = true;
+            toastr.options.progressBar = true;
+            toastr.options.timeOut = 3000;
+            toastr.options.preventDuplicates = true;
+            toastr.options.positionClass = "toast-top-center";
+        });
+    </script>
+
+    <script>
+        $(function(){
+            // Success Type
+            $('#ts-success').on('click', function() {
+                toastr.success('Have fun storming the castle!', 'Miracle Max Says');
+            });
+
+            // Success Type
+            $('#ts-info').on('click', function() {
+                toastr.info('We do have the Kapua suite available.', 'Turtle Bay Resort');
+            });
+
+            // Success Type
+            $('#ts-warning').on('click', function() {
+                toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!');
+            });
+
+            // Success Type
+            $('#ts-error').on('click', function() {
+                toastr.error('I do not think that word means what you think it means.', 'Inconceivable!');
+            });
+        });
+    </script>
+    {% endblock script %}
+</body>
+{% endblock body %}
+{% endblock html%}

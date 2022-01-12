@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-wrapper">
+  
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <form class="form-horizontal">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <h4 class="card-title">Edit Employee</h4>
+                            <input type="hidden" class="form-control" id="id" name="id" placeholder="Enter Employee Name Here" value="{{employee_detail.id}}">
+                            <div class="form-group row">
+                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Employee Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Employee Name Here" value="{{employee_detail.name}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="lname" class="col-sm-3 text-right control-label col-form-label">Employee Email</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter Employee Email Here" value="{{employee_detail.email}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Employee Contact No</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter Contact No Here" value="{{employee_detail.phone}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Employee  Address</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="Enter Address Here" value="{{employee_detail.address}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Employee  City</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="city" name="city" placeholder="Enter City Here" value="{{employee_detail.city}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Employee  Zipcode</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" id="zipcode" name="zipcode" placeholder="Enter Zip Code Here" value="{{employee_detail.zipcode}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-top">
+                            <div class="card-body">
+                                <button id="update" class="btn btn-primary" onclick="update_employee()" type='button'>submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+    </div>
+</div>
+<script>
+    function update_employee(){
+    data =$("form").serialize();
+    //alert(data)
+    $.ajax({
+        url:'/update_employee',
+        type:'post',
+        data:data,
+        cache: false,
+            success:function(res)
+            {
+                //alert(res.error)
+                if(res.error){
+                    toastr.error(res.error);
+                    $('#update').prop('disabled', false);
+                }
+                else{
+                    toastr.success(res.success);
+                    $('#update').prop('disabled', false);
+                    window.location.href="/";
+                }
+            }
+        });
+    }
+    </script>
+
+{% endblock content %}

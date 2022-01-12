@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-wrapper">
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Tables</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                <h5 class="card-title col-md-10">Basic Datatable</h5>
+                <td><a href="add_employee" class="form-action btn btn-info col-md-2">Add Employee</a></td>
+                </div>
+                <div class="table-responsive">
+                    <table id="zero_config" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                {% comment %} <th>Sno</th> {% endcomment %}
+                                <th>Employee Name</th>
+                                <th>Employee Email</th>
+                                <th>Employee Phone</th>
+                                <th>Employee Address</th>
+                                <th>Employee City</th>
+                                <th>Employee ZipCode</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for employee in employee_list%}
+                            <tr>
+                                {% comment %} <td>{{employee.i}}</td> {% endcomment %}
+                                <td>{{employee.name}}</td>
+                                <td>{{employee.email}}</td>
+                                <td>{{employee.phone}}</td>
+                                <td>{{employee.address}}</td>
+                                <td>{{employee.city}}</td>
+                                <td>{{employee.zipcode}}</td>
+                                <td><a href="edit_employee/{{employee.id}}" class="form-action btn btn-warning">Edit</a> &nbsp;
+                                <a class="form-action btn btn-danger" onClick="delete_employee({{employee.id}})">Delete</a></td>
+                            </tr>
+                            {%endfor %}
+                        </tbody>     
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+     
+</div>
+<script>
+    function delete_employee(id)
+    {
+        var action = confirm("Are you sure you want to delete this Employee Detail?");
+  if (action != false) {
+    $.ajax({
+        url: 'delete_employee',
+        data: {
+            'id': id,
+        },
+        dataType: 'json',
+        success:function(res)
+        {
+            toastr.success(res.success);
+            window.location.href="/";
+        }
+    });
+  }
+    }
+</script>
+
+{% if messages %}
+{% for message in messages %}
+    {% if message.tags == 'success'%}
+        <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+    {% elif message.tags == 'info' %}
+        <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+    {% elif message.tags == 'warning' %}
+        <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+    {% elif message.tags == 'error' %}
+        <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+    {% endif %}
+{% endfor %}
+{% endif %}
+
+{% endblock content %}
+
+
+        
+     
+
